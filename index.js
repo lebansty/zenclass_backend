@@ -269,7 +269,7 @@ app.get("/additional-sessiondata",async(req,res)=>{
     }
 })
 
-app.post("/session-manage",authenticate,async(req,res)=>{
+app.post("/getiing-adddata",authenticate,async(req,res)=>{
     try {
         const connection = await mongoClient.connect(URL)
         const db = connection.db(DB)
