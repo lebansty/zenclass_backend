@@ -9,8 +9,9 @@ const URL =process.env.DATAB
 const DB ="capstone"
 const app = express();
 app.use(express.json())
+
 app.use(cors({
-    origin:"https://thunderous-cajeta-081572.netlify.app"
+    origin:'*'
 }))
 
 
@@ -273,7 +274,13 @@ app.get("/session-manage",authenticate,async(req,res)=>{
         const connection = await mongoClient.connect(URL)
         const db = connection.db(DB)
         let data =await db.collection('batches').findOne({_id:mongodb.ObjectId(req.headers.batch_id)})
-       res.json({id:data._id,addSess:data.additionalSession, roadMap:data.sessionRoadMap})
+        if(data){
+            res.json({id:data._id,addSess:data.additionalSession, roadMap:data.sessionRoadMap})
+        }
+        if(!data){
+            res.json({messege:"no data"})
+        }
+      
       await connection.close()
     } catch (error) {
         console.log(error)
