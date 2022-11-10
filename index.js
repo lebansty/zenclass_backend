@@ -269,13 +269,13 @@ app.get("/additional-sessiondata",async(req,res)=>{
     }
 })
 
-app.get("/session-manage",authenticate,async(req,res)=>{
+app.post("/session-manage",authenticate,async(req,res)=>{
     try {
         const connection = await mongoClient.connect(URL)
         const db = connection.db(DB)
-        let data =await db.collection('batches').findOne({_id:mongodb.ObjectId(req.headers.batch_id)})
+        let data =await db.collection('batches').findOne({_id:mongodb.ObjectId(req.body.batch_id)})
         if(data){
-            res.json({id:data._id,addSess:data.additionalSession, roadMap:data.sessionRoadMap})
+            res.json({id:data._id,addSess:data.additionalSession,roadMap:data.sessionRoadMap})
         }
         if(!data){
             res.json({messege:"no data"})
@@ -284,6 +284,7 @@ app.get("/session-manage",authenticate,async(req,res)=>{
       await connection.close()
     } catch (error) {
         console.log(error)
+        res.json({messege:"Something went wrong"})
     }
 })
 
