@@ -262,31 +262,31 @@ app.get("/additional-sessiondata",async(req,res)=>{
         const connection = await mongoClient.connect(URL)
         const db = connection.db(DB)
         let data =await db.collection('batches').findOne({_id:mongodb.ObjectId(req.headers.batch_id)})
-        res.json({addSess:data.additionalSession,roadMap:data.sessionRoadMap})
+        res.json({id:data._id,addSess:data.additionalSession,roadMap:data.sessionRoadMap})
         await connection.close()
     } catch (error) {
         console.log(error)
     }
 })
 
-app.post("/session-manage",authenticate,async(req,res)=>{
-    try {
-        const connection = await mongoClient.connect(URL)
-        const db = connection.db(DB)
-        let data =await db.collection('batches').findOne({_id:mongodb.ObjectId(req.body.batch_id)})
-        if(data){
-            res.json({id:data._id,addSess:data.additionalSession,roadMap:data.sessionRoadMap})
-        }
-        if(!data){
-            res.json({messege:"no data"})
-        }
+// app.post("/session-manage",authenticate,async(req,res)=>{
+//     try {
+//         const connection = await mongoClient.connect(URL)
+//         const db = connection.db(DB)
+//         let data =await db.collection('batches').findOne({_id:mongodb.ObjectId(req.body.batch_id)})
+//         if(data){
+//             res.json({id:data._id,addSess:data.additionalSession,roadMap:data.sessionRoadMap})
+//         }
+//         if(!data){
+//             res.json({messege:"no data"})
+//         }
       
-      await connection.close()
-    } catch (error) {
-        console.log(error)
-        res.json({messege:"Something went wrong"})
-    }
-})
+//       await connection.close()
+//     } catch (error) {
+//         console.log(error)
+//         res.json({messege:"Something went wrong"})
+//     }
+// })
 
 app.put("/remove-session",authenticate,async(req,res)=>{
     try {
