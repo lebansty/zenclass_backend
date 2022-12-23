@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json())
 
 app.use(cors({
-    origin:'*'
+    origin:'https://thunderous-cajeta-081572.netlify.app/'
 }))
 
 
