@@ -10,8 +10,10 @@ const DB ="capstone"
 const app = express();
 app.use(express.json())
 
+//https://thunderous-cajeta-081572.netlify.app/
+
 app.use(cors({
-    origin:'https://thunderous-cajeta-081572.netlify.app/'
+    origin:'https://thunderous-cajeta-081572.netlify.app'
 }))
 
 
